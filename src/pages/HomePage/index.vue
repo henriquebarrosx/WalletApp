@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import NavBar from '../../components/Navbar.vue'
-import CategoriesModal from '../../components/Categories.vue'
+import NavBar from '@/components/Navbar.vue'
+import CategoriesModal from '@/components/Categories.vue'
 
 const isCategoriesVisivel = ref(false)
 
