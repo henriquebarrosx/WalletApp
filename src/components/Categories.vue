@@ -93,12 +93,12 @@ onUnmounted(() => {
 
             <div class="flex items-center gap-2">
               <button title="Editar"
-                class="h-10 w-10 bg-blue-300 text-white rounded-full hover:opacity-50 ease-in-out duration-200 flex items-center justify-center">
+                class="h-10 w-10 bg-[#3155d2] text-white rounded-full hover:opacity-50 ease-in-out duration-200 flex items-center justify-center">
                 <span class="material-symbols-outlined">edit</span>
               </button>
 
               <button title="Excluir" @click="() => categoryList.delete(category)"
-                class="h-10 w-10 bg-red-400 text-white rounded-full hover:opacity-50 ease-in-out duration-200 flex items-center justify-center">
+                class="h-10 w-10 bg-red-500 text-white rounded-full hover:opacity-50 ease-in-out duration-200 flex items-center justify-center">
                 <span class="material-symbols-outlined">delete</span>
               </button>
             </div>
