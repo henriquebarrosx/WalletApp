@@ -42,11 +42,6 @@ function formatAmountToCurrency(): void {
   amountField.value = formatThousands
 }
 
-function formatFrequencyTimes(): void {
-  const isInvalidFrequencyTimes = frequencyTimesField.value > CENTURY_IN_MONTHS || frequencyTimesField.value < 0
-  frequencyTimesField.value = isInvalidFrequencyTimes ? 0 : frequencyTimesField.value
-}
-
 async function fetchCategories() {
   try {
     categoryList.value.startLoader()
