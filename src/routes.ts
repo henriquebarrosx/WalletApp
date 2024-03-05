@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router"
 
-import HomePage from "./pages/HomePage/index.vue"
+import HomePage from "./pages/Home/index.vue"
 import SignUpPage from "./pages/SignUp/index.vue"
 import SignInPage from "./pages/SignIn/index.vue"
 

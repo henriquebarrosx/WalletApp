@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ref, onMounted, inject } from 'vue'
+import { ref, onMounted, onUnmounted, inject } from 'vue'
+
 import { Observer } from '../entities/Observer';
 import { CategoryList } from '../entities/CategoryList'
 import type { CategoriesServiceGateway } from '../services/categories/index.gateway';
@@ -15,42 +16,58 @@ const categoriesService = inject('CategoriesService') as CategoriesServiceGatewa
 const categoryList = ref<CategoryList>(new CategoryList())
 
 async function fetchCategories() {
-  categoryList.value.startLoader()
-  const data = await categoriesService.getAll()
-  categoryList.value.replace(data)
-  categoryList.value.stopLoader()
+  try {
+    categoryList.value.startLoader()
+    const data = await categoriesService.getAll()
+    categoryList.value.replace(data)
+    categoryList.value.stopLoader()
+  }
+
+  catch (error) {
+    console.error({ message: "something wrong when fetching categories", error })
+  }
 }
 
-onMounted(() => {
-  fetchCategories()
-  categoryList.value.registry(
-    new Observer('DELETE_CATEGORY', async (id: number) => {
-      categoryList.value.startLoader()
-      await categoriesService.delete(id)
-      categoryList.value.stopLoader()
-    })
-  )
+function listenEscapeKeyPress(event: KeyboardEvent) {
+  if (event.key === "Escape") onClose()
+}
 
-  categoryList.value.registry(
-    new Observer('UPDATE_CATEGORY', async ({ id, name }: { id: number, name: string }) => {
-      categoryList.value.startLoader()
-      await categoriesService.update(id, name)
-      categoryList.value.stopLoader()
-    })
-  )
+categoryList.value.registry(
+  new Observer('DELETE_CATEGORY', async (id: number) => {
+    categoryList.value.startLoader()
+    await categoriesService.delete(id)
+    categoryList.value.stopLoader()
+  })
+)
+
+categoryList.value.registry(
+  new Observer('UPDATE_CATEGORY', async ({ id, name }: { id: number, name: string }) => {
+    categoryList.value.startLoader()
+    await categoriesService.update(id, name)
+    categoryList.value.stopLoader()
+  })
+)
+
+onMounted(() => {
+  window.addEventListener('keydown', listenEscapeKeyPress)
+  fetchCategories()
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', listenEscapeKeyPress)
 })
 </script>
 
 <template>
   <div class="fixed right-0 top-0 bottom-0">
-    <div class="flex flex-col gap-8 shadow-lg py-12 px-8 h-screen w-[500px] z-10 bg-white overflow-y-auto">
+    <div class="flex flex-col gap-8 shadow-2xl py-12 px-8 h-screen w-[500px] z-10 bg-white overflow-y-auto">
       <div class="flex flex-col gap-4 w-full">
         <div class="flex justify-between mb-6">
           <h1 class="text-xl font-bold">
             Categorias
           </h1>
 
-          <button @click="() => onClose()" type="submit" title="Fechar"
+          <button @click="() => onClose()" type="button" title="Fechar"
             class="flex items-center justify-center w-6 h-6 rounded-full hover:opacity-50 ease-in-out duration-200">
             <span class="material-symbols-outlined">close</span>
           </button>
