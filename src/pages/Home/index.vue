@@ -63,7 +63,7 @@ function toggleCategoriesModal() {
 <template>
   <NavBar />
 
-  <main class="p-8">
+  <main class="px-20 py-8 flex justify-end">
     <form class="flex flex-col gap-4 max-w-[400px]">
       <h1 class="text-2xl font-semibold text-slate-700">
         Cadastrar transação
@@ -106,7 +106,7 @@ function toggleCategoriesModal() {
             Categoria
           </label>
 
-          <button type="button" @click="toggleCategoriesModal"
+          <button v-if="true" type="button" @click="toggleCategoriesModal"
             class="text-blue-500 hover:underline duration-200 ease-in-out">
             Gerenciar
           </button>
