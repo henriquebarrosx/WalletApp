@@ -60,7 +60,7 @@ onUnmounted(() => {
 
 <template>
   <div class="fixed right-0 top-0 bottom-0">
-    <div class="flex flex-col gap-8 shadow-2xl py-12 px-8 h-screen w-[500px] z-10 bg-white overflow-y-auto">
+    <div class="flex flex-col gap-8 shadow-2xl py-12 px-8 h-screen md:w-[500px] w-screen z-10 bg-white overflow-y-auto">
       <div class="flex flex-col gap-4 w-full">
         <div class="flex justify-between mb-6">
           <h1 class="text-xl font-bold">
